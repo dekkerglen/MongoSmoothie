@@ -1,0 +1,33 @@
+html(lang='en')
+  head  
+    meta(charset='UTF-8')
+    meta(name='description', content='')
+    meta(name='keywords', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='node_env', content=node_env)
+    if metadata
+      for metadatum, i in metadata
+        if metadatum.name
+          meta(name=metadatum.name, content=metadatum.content)
+        if metadatum.property
+          meta(property=metadatum.property, content=metadatum.content)
+    link(rel='icon', href='/content/favicon.ico?v=1.1', type='image/x-icon')
+    title=title ? title + ' - Mongo Web Client' : 'Mongo Web Client'
+    if node_env === 'production'
+      link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh', crossorigin='anonymous')
+    else
+      link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet' href='/css/stylesheet.css')
+    if node_env === 'production'
+      script(src='https://unpkg.com/react@16/umd/react.production.min.js', crossorigin)
+      script(src='https://unpkg.com/react-dom@16/umd/react-dom.production.min.js', crossorigin)
+    else
+      script(src='https://unpkg.com/react@16/umd/react.development.js', crossorigin)
+      script(src='https://unpkg.com/react-dom@16/umd/react-dom.development.js', crossorigin)
+
+  body
+    #react-root !{reactHTML}
+
+    script(type='text/javascript').
+      window.reactProps = !{reactProps};
+    script(src='/js/' + page + '.bundle.js')
